@@ -52,9 +52,12 @@ if st.button("Predict Loan Approval"):
 
     # Visualization: Feature Importance
     st.subheader(" Top Factors Influencing Decisions")
-    fig1, ax1 = plt.subplots()
+    
+    # Adjust the size of the bar chart
+    fig1, ax1 = plt.subplots(figsize=(6, 4))  # Set the size of the plot (width, height in inches)
     sns.barplot(data=fi_df.head(10), x='Importance', y='Feature', palette='viridis', ax=ax1)
     ax1.set_title("Top 10 Important Features")
+    plt.tight_layout()  # Automatically adjust the subplot to avoid overlap
     st.pyplot(fig1)
 
     # Pie Chart Comparison Section
@@ -87,17 +90,19 @@ if st.button("Predict Loan Approval"):
         st.markdown(f"**Your Loan Amount Bucket:** `{user_loan_bucket}`")
 
         # Pie chart for income bucket
-        fig2, ax2 = plt.subplots()
+        fig2, ax2 = plt.subplots(figsize=(5, 5))  # Adjust the figure size for pie chart
         income_counts = data[data['Income_Bucket'] == user_income_bucket]['Loan_Status'].value_counts()
         ax2.pie(income_counts, labels=income_counts.index, autopct='%1.1f%%', startangle=90)
         ax2.set_title(f"Approval Ratio for '{user_income_bucket}' Income")
+        plt.tight_layout()  # Adjust layout
         st.pyplot(fig2)
 
         # Pie chart for loan amount bucket
-        fig3, ax3 = plt.subplots()
+        fig3, ax3 = plt.subplots(figsize=(5, 5))  # Adjust the figure size for pie chart
         loan_counts = data[data['Loan_Bucket'] == user_loan_bucket]['Loan_Status'].value_counts()
         ax3.pie(loan_counts, labels=loan_counts.index, autopct='%1.1f%%', startangle=90)
         ax3.set_title(f"Approval Ratio for '{user_loan_bucket}' Loan Amount")
+        plt.tight_layout()  # Adjust layout
         st.pyplot(fig3)
 
     else:
